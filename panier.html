@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier - BIO MARKET</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Script pour simuler l'envoi du formulaire */
+        function submitOrder() {
+            var name = document.getElementById('name').value;
+            if (name) {
+                alert('Merci ' + name + ' ! Votre commande a été enregistrée.\nNous vous enverrons un email de confirmation sous 24h.');
+                document.getElementById('orderForm').reset();
+                updateTotal();
+                return false;
+            }
+            return false;
+        }
+        
+        /* Calculateur de panier dynamique */
+        function updateTotal() {
+            var miel = parseInt(document.getElementById('miel').value) || 0;
+            var huile = parseInt(document.getElementById('huile').value) || 0;
+            var pates = parseInt(document.getElementById('pates').value) || 0;
+            var cafe = parseInt(document.getElementById('cafe').value) || 0;
+            
+            var total = (miel * 12) + (huile * 18) + (pates * 5) + (cafe * 9);
+            document.getElementById('totalAmount').textContent = total + ' €';
+            
+            // Mise à jour des sous-totaux
+            document.getElementById('subMiel').textContent = (miel * 12) + ' €';
+            document.getElementById('subHuile').textContent = (huile * 18) + ' €';
+            document.getElementById('subPates').textContent = (pates * 5) + ' €';
+            document.getElementById('subCafe').textContent = (cafe * 9) + ' €';
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotal();
+        });
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>BIO <span class="nature">MARKET</span></h1>
+                <p class="slogan">Votre épicerie bio en ligne</p>
+            </div>
+            
+            <nav class="navigation">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="produits.html">Produits</a></li>
+                    <li><a href="panier.html" class="active">Panier</a></li>
+                    <li><a href="connexion.html">Connexion</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Votre Panier Bio</h2>
+        <p>Remplissez votre panier avec nos produits sélectionnés.</p>
+
+        <!-- Formulaire de commande -->
+        <form id="orderForm" onsubmit="return submitOrder()">
+            <fieldset>
+                <legend><strong>Sélection des Produits</strong></legend>
+                
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix unitaire</th>
+                            <th>Quantité</th>
+                            <th>Sous-total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Miel de lavande bio</strong></td>
+                            <td>12 €</td>
+                            <td>
+                                <input type="number" id="miel" name="miel" min="0" value="0" onchange="updateTotal()" style="width: 60px;">
+                            </td>
+                            <td id="subMiel">0 €</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Huile d'olive extra vierge</strong></td>
+                            <td>18 €</td>
+                            <td>
+                                <input type="number" id="huile" name="huile" min="0" value="0" onchange="updateTotal()" style="width: 60px;">
+                            </td>
+                            <td id="subHuile">0 €</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pâtes complètes bio</strong></td>
+                            <td>5 €</td>
+                            <td>
+                                <input type="number" id="pates" name="pates" min="0" value="0" onchange="updateTotal()" style="width: 60px;">
+                            </td>
+                            <td id="subPates">0 €</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Café équitable</strong></td>
+                            <td>9 €</td>
+                            <td>
+                                <input type="number" id="cafe" name="cafe" min="0" value="0" onchange="updateTotal()" style="width: 60px;">
+                            </td>
+                            <td id="subCafe">0 €</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" style="text-align: right;"><strong>Total :</strong></td>
+                            <td><strong id="totalAmount">0 €</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </fieldset>
+
+            <fieldset>
+                <legend><strong>Informations Personnelles</strong></legend>
+                
+                <div class="form-group">
+                    <label for="name">Nom complet *</label>
+                    <input type="text" id="name" name="name" required placeholder="Votre nom et prénom">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Adresse email *</label>
+                    <input type="email" id="email" name="email" required placeholder="exemple@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Téléphone *</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="0123456789" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Adresse de livraison *</label>
+                    <textarea id="address" name="address" rows="3" required placeholder="Numéro, rue, code postal, ville"></textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend><strong>Options de Livraison</strong></legend>
+                
+                <div class="form-group">
+                    <label for="delivery">Mode de livraison *</label>
+                    <select id="delivery" name="delivery" required>
+                        <option value="standard">Standard (48h) - Gratuit</option>
+                        <option value="express">Express (24h) - 5 €</option>
+                        <option value="drive">Retrait en point drive - Gratuit</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="instructions">Instructions spéciales (optionnel)</label>
+                    <textarea id="instructions" name="instructions" rows="3" placeholder="Ex: Livrer après 18h, sonner au 2ème étage..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newsletter">
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        Je souhaite recevoir la newsletter BIO MARKET (promotions, recettes bio)
+                    </label>
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <input type="reset" value="Vider le panier" class="btn-secondary" onclick="document.getElementById('miel').value=0;document.getElementById('huile').value=0;document.getElementById('pates').value=0;document.getElementById('cafe').value=0;updateTotal();">
+                <input type="submit" value="Commander et payer" class="btn-primary">
+            </div>
+        </form>
+
+        <!-- Informations complémentaires -->
+        <section class="order-info">
+            <h3>Comment fonctionne la commande ?</h3>
+            <ol>
+                <li>Vous sélectionnez vos produits et quantités</li>
+                <li>Vous remplissez vos informations de livraison</li>
+                <li>Vous recevez un email de confirmation sous 24h</li>
+                <li>Nous préparons votre commande avec soin</li>
+                <li>Livraison selon le mode choisi (48h max)</li>
+            </ol>
+            
+            <div class="contact-details">
+                <h4>Questions ? Contactez-nous :</h4>
+                <p>📧 Email : <a href="mailto:contact@biomarket.com">contact@biomarket.com</a></p>
+                <p>📞 Téléphone : <a href="tel:+33123456789">01 23 45 67 89</a></p>
+                <p>🕒 Horaires : Lundi-Samedi 9h-19h</p>
+                <p>📍 Retrait possible : 10 Rue Bio, 75000 Paris</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-section">
+                <h4>BIO MARKET</h4>
+                <p>Votre partenaire alimentation saine</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <p><a href="index.html">Accueil</a> | <a href="produits.html">Produits</a> | <a href="panier.html">Panier</a> | <a href="connexion.html">Connexion</a></p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2024 BIO MARKET - Projet Marketing Agroalimentaire</p>
+            <p><a href="index.html">Retour à l'accueil</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialiser le total
+        updateTotal();
+    </script>
+</body>
+</html>

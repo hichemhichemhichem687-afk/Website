@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - BIO MARKET</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(46, 139, 87, 0.1);
+        }
+        
+        .login-container h2 {
+            text-align: center;
+            color: #228B22;
+            margin-bottom: 30px;
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .login-options a {
+            color: #2E8B57;
+            text-decoration: none;
+        }
+        
+        .login-options a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>BIO <span class="nature">MARKET</span></h1>
+                <p class="slogan">Votre épicerie bio en ligne</p>
+            </div>
+            
+            <nav class="navigation">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="produits.html">Produits</a></li>
+                    <li><a href="panier.html">Panier</a></li>
+                    <li><a href="connexion.html" class="active">Connexion</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="login-container">
+            <h2>Connexion à votre compte</h2>
+            
+            <form id="loginForm" onsubmit="return login()">
+                <div class="form-group">
+                    <label for="loginEmail">Adresse email *</label>
+                    <input type="email" id="loginEmail" name="email" required placeholder="votre@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Mot de passe *</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="Votre mot de passe">
+                </div>
+                
+                <div class="form-group">
+                    <label for="remember">
+                        <input type="checkbox" id="remember" name="remember">
+                        Se souvenir de moi
+                    </label>
+                </div>
+                
+                <div class="form-actions">
+                    <input type="submit" value="Se connecter" class="btn-primary" style="width: 100%;">
+                </div>
+                
+                <div class="login-options">
+                    <a href="#">Mot de passe oublié ?</a>
+                    <a href="#">Créer un compte</a>
+                </div>
+            </form>
+            
+            <div class="order-info" style="margin-top: 30px;">
+                <h4>Pourquoi créer un compte ?</h4>
+                <ul>
+                    <li>✅ Historique de vos commandes</li>
+                    <li>✅ Adresses de livraison enregistrées</li>
+                    <li>✅ Paiement plus rapide</li>
+                    <li>✅ Offres exclusives réservées aux membres</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-section">
+                <h4>BIO MARKET</h4>
+                <p>Votre partenaire alimentation saine</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <p><a href="index.html">Accueil</a> | <a href="produits.html">Produits</a> | <a href="panier.html">Panier</a></p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2024 BIO MARKET - Projet Marketing Agroalimentaire</p>
+        </div>
+    </footer>
+
+    <script>
+        function login() {
+            var email = document.getElementById('loginEmail').value;
+            var password = document.getElementById('loginPassword').value;
+            
+            // Simulation de connexion (à remplacer par une vraie vérification en PHP/MySQL)
+            if(email && password) {
+                alert('Connexion réussie ! Bienvenue sur BIO MARKET.');
+                // Redirection vers la page d'accueil
+                window.location.href = "index.html";
+                return false;
+            } else {
+                alert('Veuillez remplir tous les champs.');
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
